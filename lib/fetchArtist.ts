@@ -1,8 +1,8 @@
 import { Artist, Track } from "@/lib/types";
 
 async function getAccessToken(): Promise<string> {
-    const clientId = process.env.SPOTIFY_CLIENT_ID!;
-    const clientSecret = process.env.SPOTIFY_CLIENT_SECRET!;
+    const clientId = process.env.SPOTIFY_CLIENT_ID;
+    const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
     const response = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
         headers: {
