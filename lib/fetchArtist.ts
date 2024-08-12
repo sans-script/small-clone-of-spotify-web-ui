@@ -1,29 +1,27 @@
 import { Artist, Track } from "@/lib/types";
-
-async function getAccessToken(): Promise<string> {
-    const clientId = process.env.SPOTIFY_CLIENT_ID;
-    const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-    const response = await fetch('https://accounts.spotify.com/api/token', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret),
-        },
-        body: 'grant_type=client_credentials',
-    });
-    const data = await response.json();
-    return data.access_token;
-}
+import getAccessToken from "./getAccessToken";
 
 export async function fetchArtist(id: string): Promise<Artist> {
     const token = await getAccessToken();
-
+    
+    // Verifica se o token é válido
+    if (!token || typeof token !== 'string') {
+        throw new Error('Invalid access token');
+    }
+    
     // Busca os detalhes do artista
     const artistRes = await fetch(`https://api.spotify.com/v1/artists/${id}`, {
         headers: {
             'Authorization': 'Bearer ' + token,
         },
     });
+    
+    // Verifica se a resposta foi bem-sucedida
+    if (!artistRes.ok) {
+        const errorData = await artistRes.json();
+        throw new Error(`Failed to fetch artist: ${errorData.error.message}`);
+    }
+    
     const artistData = await artistRes.json();
 
     // Busca as top tracks do artista
@@ -32,13 +30,18 @@ export async function fetchArtist(id: string): Promise<Artist> {
             'Authorization': 'Bearer ' + token,
         },
     });
+    
+    // Verifica se a resposta foi bem-sucedida
+    if (!tracksRes.ok) {
+        const errorData = await tracksRes.json();
+        throw new Error(`Failed to fetch top tracks: ${errorData.error.message}`);
+    }
+    
     const tracksData = await tracksRes.json();
-    console.log(tracksData)
 
-    // Verifica se data.images existe e tem a propriedade length
+    // Verifica se artistData e tracksData têm os dados necessários
     const imageUrl = artistData.images && artistData.images.length > 0 ? artistData.images[0].url : '';
-
-    // Mapeia as top tracks
+    
     const topTracks: Track[] = tracksData.tracks.map((track: any) => ({
         name: track.name,
         albumName: track.album.name,
@@ -47,13 +50,6 @@ export async function fetchArtist(id: string): Promise<Artist> {
         id: track.id,
         duration: track.duration_ms,
     }));
-    console.log(topTracks)
-    
-
-
-
-    
-    
 
     return {
         name: artistData.name,
@@ -63,7 +59,4 @@ export async function fetchArtist(id: string): Promise<Artist> {
         genres: artistData.genres,
         topTracks: topTracks,
     };
-    
 }
-
-
