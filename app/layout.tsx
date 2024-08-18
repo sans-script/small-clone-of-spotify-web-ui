@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SideBar from "@/components/SideBar";
-
+import { AudioPlayerProvider } from '@/context/AudioPlayerContext';
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,9 +16,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex w-screen h-screen p-2 bg-black">
-        <SideBar/>
-        {children}
-        </body>
+        <AudioPlayerProvider>
+          <SideBar />
+          {children}
+        </AudioPlayerProvider>
+      </body>
     </html>
   );
 }

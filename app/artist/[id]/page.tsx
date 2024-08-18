@@ -24,6 +24,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
     null
   );
   const [isPlaying, setIsPlaying] = useState(false);
+  const [playbackPosition, setPlaybackPosition] = useState(0);
   const { id } = params;
 
   useEffect(() => {
@@ -38,31 +39,29 @@ export default function ArtistPage({ params }: ArtistPageProps) {
     loadArtist();
   }, [id]);
 
-  useEffect(() => {
-    if (playingTrackIndex !== null) {
-      const previewUrl = artist?.topTracks?.[playingTrackIndex]?.previewUrl;
-
+  const handlePlayPause = (trackPreviewUrl: string, index: number) => {
+    if (playingTrackIndex === index && audio) {
+      if (isPlaying) {
+        setPlaybackPosition(audio.currentTime);
+        audio.pause();
+        setIsPlaying(false);
+      } else {
+        audio.currentTime = playbackPosition;
+        audio.play();
+        setIsPlaying(true);
+      }
+    } else {
       if (audio) {
         audio.pause();
       }
-
-      if (previewUrl) {
-        const newAudio = new Audio(previewUrl);
-        newAudio.play();
-        setAudio(newAudio);
-        setIsPlaying(true);
-
-        // Limpar o áudio quando o componente é desmontado ou o índice de reprodução muda
-        return () => {
-          newAudio.pause();
-          setAudio(null);
-          setIsPlaying(false);
-        };
-      } else {
-        console.error("Preview URL not available for the selected track.");
-      }
+      const newAudio = new Audio(trackPreviewUrl);
+      setAudio(newAudio);
+      setPlayingTrackIndex(index);
+      setPlaybackPosition(0);
+      newAudio.play();
+      setIsPlaying(true);
     }
-  }, [playingTrackIndex]);
+  };
 
   if (loading) {
     return (
@@ -139,7 +138,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
                   {isPlaying && playingTrackIndex === index ? (
                     <button
                       className="flex items-center justify-center cursor-pointer"
-                      onClick={() => setPlayingTrackIndex(index)}
+                      onClick={() => handlePlayPause(track.previewUrl, index)}
                     >
                       <svg
                         role="img"
@@ -153,7 +152,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
                   ) : (
                     <button
                       className="flex items-center justify-center cursor-pointer"
-                      onClick={() => setPlayingTrackIndex(index)}
+                      onClick={() => handlePlayPause(track.previewUrl, index)}
                     >
                       <svg
                         role="img"
@@ -179,11 +178,13 @@ export default function ArtistPage({ params }: ArtistPageProps) {
                   backgroundPosition: "center",
                 }}
               ></div>
-              <h1 className="text-white truncate w-20 sm:w-auto sm:whitespace-normal sm:overflow-visible sm:truncate-none">{track.name}</h1>
-
-
+              <h1 className="text-white truncate w-20 sm:w-auto sm:whitespace-normal sm:overflow-visible sm:truncate-none">
+                {track.name}
+              </h1>
             </div>
-            <h1 className="text-gray-400 hidden sm:flex">{formatDuration(track.duration)}</h1>
+            <h1 className="text-gray-400 hidden sm:flex">
+              {formatDuration(track.duration)}
+            </h1>
           </div>
         ))}
       </div>
