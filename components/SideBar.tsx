@@ -116,11 +116,12 @@ function SideBar() {
                             <Image
                               src={artist.imageUrl}
                               alt={artist.name}
-                              width={100}
-                              height={100}
+                              width={1000}
+                              height={1000}
                               className="w-12 h-12 rounded-md"
                             />
                           </div>
+
                         )}
                       </div>
                     </Link>

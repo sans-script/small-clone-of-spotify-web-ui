@@ -138,11 +138,11 @@ export default function ArtistPage({ params }: ArtistPageProps) {
           className="rounded-lg opacity-50"
         />
         <div className="absolute inset-0 flex flex-col justify-center gap-2 p-4 z-10">
-          <h1 className="text-white text-4xl font-bold">{artist.name}</h1>
           <p className="text-white">
             {formatFollowers(artist.followers)} followers
           </p>
           <p className="text-white capitalize">{artist.genres.join(", ")}</p>
+          <h1 className="text-white sm:text-7xl text-5xl font-bold truncate">{artist.name}</h1>
           <p className="text-gray-400 capitalize">{artist.type}</p>
         </div>
       </div>
@@ -220,15 +220,4 @@ export default function ArtistPage({ params }: ArtistPageProps) {
       </div>
     </main>
   );
-
-  {
-    /* <svg
-                  data-encore-id="icon"
-                  role="img"
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M5.7 3a.7.7 0 0 0-.7.7v16.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V3.7a.7.7 0 0 0-.7-.7H5.7zm10 0a.7.7 0 0 0-.7.7v16.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V3.7a.7.7 0 0 0-.7-.7h-2.6z"></path>
-                </svg> */
-  }
 }
