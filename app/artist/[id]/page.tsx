@@ -6,6 +6,7 @@ import Image from "next/image";
 import formatFollowers from "@/utils/formatFollowers";
 import { Artist } from "@/lib/types";
 import formatDuration from "@/utils/formatDuration";
+import { useAudio } from "@/context/AudioContext";
 
 interface ArtistPageProps {
   params: {
@@ -19,12 +20,14 @@ export default function ArtistPage({ params }: ArtistPageProps) {
   const [hoveredTrackIndex, setHoveredTrackIndex] = useState<number | null>(
     null
   );
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
-  const [playingTrackIndex, setPlayingTrackIndex] = useState<number | null>(
-    null
-  );
-  const [isPlaying, setIsPlaying] = useState(false);
+  // const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  // const [playingTrackIndex, setPlayingTrackIndex] = useState<number | null>(
+  //   null
+  // );
+  // const [isPlaying, setIsPlaying] = useState(false);
+  
   const [playbackPosition, setPlaybackPosition] = useState(0);
+  const { audio, setAudio, playingTrackIndex, setPlayingTrackIndex, isPlaying, setIsPlaying } = useAudio();
   const { id } = params;
 
   useEffect(() => {
@@ -33,11 +36,38 @@ export default function ArtistPage({ params }: ArtistPageProps) {
         const artistData = await fetchArtist(id);
         setArtist(artistData);
         setLoading(false);
+        setPlayingTrackIndex(null)
+        setIsPlaying(false)
       }
     };
 
     loadArtist();
   }, [id]);
+
+  // const handlePlayPause = (trackPreviewUrl: string, index: number) => {
+  //   if (playingTrackIndex === index && audio) {
+  //     if (isPlaying) {
+  //       setPlaybackPosition(audio.currentTime);
+  //       audio.pause();
+  //       setIsPlaying(false);
+  //     } else {
+  //       audio.currentTime = playbackPosition;
+  //       audio.play();
+  //       setIsPlaying(true);
+  //     }
+  //   } else {
+  //     if (audio) {
+  //       audio.pause();
+  //     }
+  //     const newAudio = new Audio(trackPreviewUrl);
+  //     setAudio(newAudio);
+  //     setPlayingTrackIndex(index);
+  //     setPlaybackPosition(0);
+  //     newAudio.play();
+  //     setIsPlaying(true);
+  //   }
+  // };
+
 
   const handlePlayPause = (trackPreviewUrl: string, index: number) => {
     if (playingTrackIndex === index && audio) {

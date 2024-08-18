@@ -30,7 +30,7 @@ function SideBar() {
 
   return (
     <aside className="flex flex-col w-[90px] h-full gap-2">
-      {/* <div
+      <div
         className="w-full h-32 gap-2 rounded-lg"
         style={{
           background: "rgba(18, 18, 18, 1)",
@@ -38,12 +38,14 @@ function SideBar() {
       >
         <ul className="px-2 py-3 w-full h-full flex flex-col items-center justify-center gap-2">
           <li className="p-2 cursor-pointer">
+          <Link href={"/"}>
             <svg
               className="fill-gray-400 hover:fill-white w-7 h-7"
               viewBox="0 0 24 24"
             >
               <path d="M12.5 3.247a1 1 0 0 0-1 0L4 7.577V20h4.5v-6a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v6H20V7.577l-7.5-4.33zm-2-1.732a3 3 0 0 1 3 0l7.5 4.33a2 2 0 0 1 1 1.732V21a1 1 0 0 1-1 1h-6.5a1 1 0 0 1-1-1v-6h-3v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.577a2 2 0 0 1 1-1.732l7.5-4.33z"></path>
             </svg>
+            </Link>
           </li>
           <li className="p-2 cursor-pointer">
             <svg
@@ -54,7 +56,7 @@ function SideBar() {
             </svg>
           </li>
         </ul>
-      </div> */}
+      </div>
 
       <div
         className="w-full h-full gap-2 rounded-lg overflow-auto"
