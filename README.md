@@ -18,28 +18,34 @@ This is a simple music player built with Next.js that showcases artist informati
 ### Setup
 
 1. **Clone the Repository:**
+   
    ```bash
    git clone https://github.com/your-username/spotify-music-player.git
    ```
-2. **Install Dependencies:**
+3. **Install Dependencies:**
+   
    ```bash
    cd spotify-music-player
    npm install
    ```
-3. **Create an Environment Variable File (.env):**
+5. **Create an Environment Variable File (.env):**
+   
    ```bash
    touch .env
    ```
-4. **Add Your Spotify API Credentials:**
+7. **Add Your Spotify API Credentials:**
+   
    ```bash
    NEXT_PUBLIC_SPOTIFY_CLIENT_ID=your_client_id
    NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET=your_client_secret
    ```
-5. **Start the Development Server:**
+9. **Start the Development Server:**
+    
    ```bash
    npm run dev
    ```
-6. **Access the Application:**
+11. **Access the Application:**
+    
    Open `http://localhost:3000` in your web browser.
 
 ### Running the Application
