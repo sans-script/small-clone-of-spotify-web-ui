@@ -5,7 +5,7 @@ import { fetchArtist } from "@/lib/fetchArtist";
 import { Artist } from "@/lib/types";
 import React, { useEffect, useState } from "react";
 
-function AudioControl({ artistId }: { artistId: string }) {
+function AudioControl() {
   // const [artist, setArtist] = useState<Artist | null>(null);
   const [loading, setLoading] = useState(true);
   const [playbackPosition, setPlaybackPosition] = useState(0);
