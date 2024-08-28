@@ -4,7 +4,7 @@ import { fetchArtist } from "@/lib/fetchArtist";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import formatFollowers from "@/utils/formatFollowers";
-import { Artist } from "@/lib/types";
+import { Artist, Track } from "@/lib/types";
 import formatDuration from "@/utils/formatDuration";
 import { useAudio } from "@/context/AudioContext";
 
@@ -15,59 +15,30 @@ interface ArtistPageProps {
 }
 
 export default function ArtistPage({ params }: ArtistPageProps) {
-  const [artist, setArtist] = useState<Artist | null>(null);
+  // const [artist, setArtist] = useState<Artist | null>(null);
   const [loading, setLoading] = useState(true);
-  const [hoveredTrackIndex, setHoveredTrackIndex] = useState<number | null>(
-    null
-  );
-  // const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
-  // const [playingTrackIndex, setPlayingTrackIndex] = useState<number | null>(
-  //   null
-  // );
-  // const [isPlaying, setIsPlaying] = useState(false);
-  
+  const [hoveredTrackIndex, setHoveredTrackIndex] = useState<number | null>(null);
   const [playbackPosition, setPlaybackPosition] = useState(0);
-  const { audio, setAudio, playingTrackIndex, setPlayingTrackIndex, isPlaying, setIsPlaying } = useAudio();
+  const { audio, setAudio, playingTrackIndex, setPlayingTrackIndex, isPlaying, setIsPlaying, artist, setArtist, setCurrentTrack } = useAudio();
   const { id } = params;
 
   useEffect(() => {
     const loadArtist = async () => {
-      if (id) {
+      try {
         const artistData = await fetchArtist(id);
         setArtist(artistData);
         setLoading(false);
-        setPlayingTrackIndex(null)
-        setIsPlaying(false)
+        setPlayingTrackIndex(null);
+        // setIsPlaying(false);
+        // setCurrentTrack(null);
+      } catch (error) {
+        console.error("Failed to fetch artist", error);
+        setLoading(false);
       }
     };
 
     loadArtist();
-  }, [id]);
-
-  // const handlePlayPause = (trackPreviewUrl: string, index: number) => {
-  //   if (playingTrackIndex === index && audio) {
-  //     if (isPlaying) {
-  //       setPlaybackPosition(audio.currentTime);
-  //       audio.pause();
-  //       setIsPlaying(false);
-  //     } else {
-  //       audio.currentTime = playbackPosition;
-  //       audio.play();
-  //       setIsPlaying(true);
-  //     }
-  //   } else {
-  //     if (audio) {
-  //       audio.pause();
-  //     }
-  //     const newAudio = new Audio(trackPreviewUrl);
-  //     setAudio(newAudio);
-  //     setPlayingTrackIndex(index);
-  //     setPlaybackPosition(0);
-  //     newAudio.play();
-  //     setIsPlaying(true);
-  //   }
-  // };
-
+  }, [id, setArtist, setPlayingTrackIndex, setIsPlaying, setCurrentTrack]);
 
   const handlePlayPause = (trackPreviewUrl: string, index: number) => {
     if (playingTrackIndex === index && audio) {
@@ -90,7 +61,10 @@ export default function ArtistPage({ params }: ArtistPageProps) {
       setPlaybackPosition(0);
       newAudio.play();
       setIsPlaying(true);
+      setCurrentTrack(artist?.topTracks[index] || null); // Atualize a faixa atual
     }
+
+    console.log(artist);
   };
 
   if (loading) {
@@ -218,6 +192,26 @@ export default function ArtistPage({ params }: ArtistPageProps) {
           </div>
         ))}
       </div>
+
+      {/* {currentTrack && (
+        <div className="p-4">
+          <h2 className="text-white text-xl font-bold">Current Track</h2>
+          <div className="flex items-center gap-4">
+            <Image
+              src={currentTrack.albumImageUrl}
+              alt={currentTrack.name}
+              width={50}
+              height={50}
+              className="rounded-lg"
+            />
+            <div>
+              <h3 className="text-white font-bold">{currentTrack.name}</h3>
+              <p className="text-gray-400">{currentTrack.albumName}</p>
+              <p className="text-gray-400">{formatDuration(currentTrack.duration)}</p>
+            </div>
+          </div>
+        </div>
+      )} */}
     </main>
   );
 }
