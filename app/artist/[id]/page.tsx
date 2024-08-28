@@ -17,9 +17,21 @@ interface ArtistPageProps {
 export default function ArtistPage({ params }: ArtistPageProps) {
   // const [artist, setArtist] = useState<Artist | null>(null);
   const [loading, setLoading] = useState(true);
-  const [hoveredTrackIndex, setHoveredTrackIndex] = useState<number | null>(null);
+  const [hoveredTrackIndex, setHoveredTrackIndex] = useState<number | null>(
+    null
+  );
   const [playbackPosition, setPlaybackPosition] = useState(0);
-  const { audio, setAudio, playingTrackIndex, setPlayingTrackIndex, isPlaying, setIsPlaying, artist, setArtist, setCurrentTrack } = useAudio();
+  const {
+    audio,
+    setAudio,
+    playingTrackIndex,
+    setPlayingTrackIndex,
+    isPlaying,
+    setIsPlaying,
+    artist,
+    setArtist,
+    setCurrentTrack,
+  } = useAudio();
   const { id } = params;
 
   useEffect(() => {
@@ -61,7 +73,11 @@ export default function ArtistPage({ params }: ArtistPageProps) {
       setPlaybackPosition(0);
       newAudio.play();
       setIsPlaying(true);
-      setCurrentTrack(artist?.topTracks[index] || null); // Atualize a faixa atual
+      if (artist?.topTracks && artist.topTracks.length > 0) {
+        setCurrentTrack(artist.topTracks[index]);
+      } else {
+        setCurrentTrack(null);
+      }
     }
 
     console.log(artist);
@@ -116,7 +132,9 @@ export default function ArtistPage({ params }: ArtistPageProps) {
             {formatFollowers(artist.followers)} followers
           </p>
           <p className="text-white capitalize">{artist.genres.join(", ")}</p>
-          <h1 className="text-white sm:text-7xl text-5xl font-bold truncate">{artist.name}</h1>
+          <h1 className="text-white sm:text-7xl text-5xl font-bold truncate">
+            {artist.name}
+          </h1>
           <p className="text-gray-400 capitalize">{artist.type}</p>
         </div>
       </div>
