@@ -39,7 +39,7 @@ export default function HomePage() {
 
   return (
     <main
-      className="w-full h-full rounded-lg ml-2 flex flex-col  overflow-y-hidden"
+      className="w-full h-[85%] rounded-lg ml-2 flex flex-col  overflow-y-hidden"
       style={{
         background:
           "linear-gradient(349deg, rgba(18, 18, 18, 1) 0%, rgba(33, 33, 33, 1) 100%)",

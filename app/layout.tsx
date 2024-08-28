@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SideBar from "@/components/SideBar";
 import { AudioProvider } from "@/context/AudioContext";
+import AudioControl from "@/components/AudioControl";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,10 +16,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="flex w-screen h-screen p-2 bg-black">
+      <body className="flex flex-col w-screen h-screen bg-black">
         <AudioProvider>
+          <div className="flex w-full h-full p-2">
           <SideBar />
           {children}
+          </div>
+          <AudioControl />
         </AudioProvider>
       </body>
     </html>
