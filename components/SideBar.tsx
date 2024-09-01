@@ -29,7 +29,7 @@ function SideBar() {
   }, [artistIds]);
 
   return (
-    <aside className="flex flex-col w-[90px] h-[88%] gap-2">
+    <aside className="flex flex-col w-[90px] h-[88%] z-50 gap-2">
       <div
         className="w-full h-32 gap-2 rounded-lg"
         style={{
