@@ -86,13 +86,52 @@ export default function ArtistPage({ params }: ArtistPageProps) {
   if (loading) {
     return (
       <main
-        className="w-full h-[80%] sm:h-[88%] z-50 rounded-lg ml-2 flex flex-col p-2"
+        className="w-full h-[80%] sm:h-[88%] z-50 rounded-lg ml-2 flex flex-col p-2 overflow-auto"
         style={{
           background:
             "linear-gradient(349deg, rgba(18, 18, 18, 1) 0%, rgba(33, 33, 33, 1) 100%)",
         }}
       >
-        <div className="relative w-full h-64 bg-[#212121] rounded-lg"></div>
+        <div className="relative w-full h-64">
+          {/* Fallback para a imagem do artista */}
+          <div className="absolute inset-0 flex flex-col justify-center items-start gap-2 p-4 z-10 bg-[#212121] rounded-lg">
+            <div className="w-full h-full rounded-lg"></div>{" "}
+            {/* Imagem de fundo */}
+          </div>
+          {/* Sobreposição */}
+          <div className="absolute inset-0 flex flex-col justify-center items-start gap-2 p-4 z-10">
+            <div className="w-full h-8 bg-[#434343] rounded"></div>{" "}
+            {/* Fallback para seguidores */}
+            <div className="w-full h-6 bg-[#434343] rounded mt-2"></div>{" "}
+            {/* Fallback para gêneros */}
+            <div className="w-1/2 h-12 bg-[#434343] rounded mt-2"></div>{" "}
+            {/* Fallback para nome do artista */}
+            <div className="w-1/3 h-4 bg-[#434343] rounded mt-2"></div>{" "}
+            {/* Fallback para tipo */}
+          </div>
+        </div>
+
+        <h2 className="text-white text-2xl p-4 font-bold">Popular</h2>
+
+        <div className="flex flex-col gap-1 md:px-7 w-full h-20">
+          {Array.from({ length: 10 }, (_, index) => (
+            <div
+              key={index}
+              className={`flex justify-between items-center px-4 py-2 rounded-lg`}
+              onMouseEnter={() => setHoveredTrackIndex(index)}
+              onMouseLeave={() => setHoveredTrackIndex(null)}
+            >
+              <div className="flex gap-4 items-center">
+                <div className="w-10 h-10 bg-[#212121] rounded-lg"></div>{" "}
+                {/* Fallback para imagem do álbum */}
+                <div className="w-32 h-6 bg-[#212121] rounded"></div>{" "}
+                {/* Fallback para nome da faixa */}
+              </div>
+              <div className="w-16 h-4 bg-[#212121] rounded hidden sm:flex"></div>{" "}
+              {/* Fallback para duração */}
+            </div>
+          ))}
+        </div>
       </main>
     );
   }
@@ -204,32 +243,13 @@ export default function ArtistPage({ params }: ArtistPageProps) {
                 {track.name}
               </h1>
             </div>
+
             <h1 className="text-gray-400 hidden sm:flex">
               {formatDuration(track.duration)}
             </h1>
           </div>
         ))}
       </div>
-
-      {/* {currentTrack && (
-        <div className="p-4">
-          <h2 className="text-white text-xl font-bold">Current Track</h2>
-          <div className="flex items-center gap-4">
-            <Image
-              src={currentTrack.albumImageUrl}
-              alt={currentTrack.name}
-              width={50}
-              height={50}
-              className="rounded-lg"
-            />
-            <div>
-              <h3 className="text-white font-bold">{currentTrack.name}</h3>
-              <p className="text-gray-400">{currentTrack.albumName}</p>
-              <p className="text-gray-400">{formatDuration(currentTrack.duration)}</p>
-            </div>
-          </div>
-        </div>
-      )} */}
     </main>
   );
 }
