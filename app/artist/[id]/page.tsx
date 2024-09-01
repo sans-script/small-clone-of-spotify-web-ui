@@ -86,7 +86,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
   if (loading) {
     return (
       <main
-        className="w-full h-full rounded-lg ml-2 flex flex-col p-2"
+        className="w-full h-[85%] rounded-lg ml-2 flex flex-col p-2"
         style={{
           background:
             "linear-gradient(349deg, rgba(18, 18, 18, 1) 0%, rgba(33, 33, 33, 1) 100%)",
@@ -100,7 +100,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
   if (!artist) {
     return (
       <main
-        className="w-full h-full rounded-lg ml-2 flex flex-col items-center justify-center"
+        className="w-full h-[85%] rounded-lg ml-2 flex flex-col items-center justify-center"
         style={{
           background:
             "linear-gradient(349deg, rgba(18, 18, 18, 1) 0%, rgba(33, 33, 33, 1) 100%)",
@@ -127,7 +127,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
           objectFit="cover"
           className="rounded-lg opacity-50"
         />
-        <div className="absolute inset-0 flex flex-col justify-center gap-2 p-4 z-10">
+        <div className="absolute inset-0 flex flex-col justify-center items-start gap-2 p-4 z-10">
           <p className="text-white">
             {formatFollowers(artist.followers)} followers
           </p>

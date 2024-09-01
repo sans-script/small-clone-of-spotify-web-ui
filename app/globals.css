@@ -8,3 +8,25 @@
   width: 0; /* Largura da barra de rolagem */
 }
 
+.scroll-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 200px; /* Largura do container visível */
+  white-space: nowrap;
+}
+
+.scroll-animation {
+  display: inline-block;
+  animation: scroll-animation 10s linear infinite;
+}
+
+@keyframes scroll-animation {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
