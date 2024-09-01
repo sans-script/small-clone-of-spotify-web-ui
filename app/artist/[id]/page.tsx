@@ -86,7 +86,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
   if (loading) {
     return (
       <main
-        className="w-full h-[80%] z-50 rounded-lg ml-2 flex flex-col p-2"
+        className="w-full h-[80%] sm:h-[88%] z-50 rounded-lg ml-2 flex flex-col p-2"
         style={{
           background:
             "linear-gradient(349deg, rgba(18, 18, 18, 1) 0%, rgba(33, 33, 33, 1) 100%)",
@@ -100,7 +100,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
   if (!artist) {
     return (
       <main
-        className="w-full h-[80%] z-50 rounded-lg ml-2 flex flex-col items-center justify-center"
+        className="w-full h-[80%] sm:h-[88%] z-50 rounded-lg ml-2 flex flex-col items-center justify-center"
         style={{
           background:
             "linear-gradient(349deg, rgba(18, 18, 18, 1) 0%, rgba(33, 33, 33, 1) 100%)",
@@ -113,7 +113,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
 
   return (
     <main
-      className="w-full h-[80%] z-50 rounded-lg ml-2 flex flex-col p-2 overflow-auto"
+      className="w-full h-[80%] sm:h-[88%] z-50 rounded-lg ml-2 flex flex-col p-2 overflow-auto"
       style={{
         background:
           "linear-gradient(349deg, rgba(18, 18, 18, 1) 0%, rgba(33, 33, 33, 1) 100%)",
