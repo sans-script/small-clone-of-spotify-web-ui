@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="flex flex-col w-screen h-screen bg-black">
+      <body className="flex flex-col w-screen h-screen bg-black overflow-hidden">
         <AudioProvider>
           <div className="flex w-full h-full p-2">
           <SideBar />
