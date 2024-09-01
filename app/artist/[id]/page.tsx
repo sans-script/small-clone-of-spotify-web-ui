@@ -86,7 +86,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
   if (loading) {
     return (
       <main
-        className="w-full h-[85%] rounded-lg ml-2 flex flex-col p-2"
+        className="w-full h-[88%] rounded-lg ml-2 flex flex-col p-2"
         style={{
           background:
             "linear-gradient(349deg, rgba(18, 18, 18, 1) 0%, rgba(33, 33, 33, 1) 100%)",
@@ -100,7 +100,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
   if (!artist) {
     return (
       <main
-        className="w-full h-[85%] rounded-lg ml-2 flex flex-col items-center justify-center"
+        className="w-full h-[88%] rounded-lg ml-2 flex flex-col items-center justify-center"
         style={{
           background:
             "linear-gradient(349deg, rgba(18, 18, 18, 1) 0%, rgba(33, 33, 33, 1) 100%)",
@@ -113,7 +113,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
 
   return (
     <main
-      className="w-full h-[85%] rounded-lg ml-2 flex flex-col p-2 overflow-auto"
+      className="w-full h-[88%] rounded-lg ml-2 flex flex-col p-2 overflow-auto"
       style={{
         background:
           "linear-gradient(349deg, rgba(18, 18, 18, 1) 0%, rgba(33, 33, 33, 1) 100%)",
@@ -132,7 +132,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
             {formatFollowers(artist.followers)} followers
           </p>
           <p className="text-white capitalize">{artist.genres.join(", ")}</p>
-          <h1 className="text-white sm:text-7xl text-5xl font-bold truncate">
+          <h1 className="text-white sm:text-6xl text-xl font-bold truncate">
             {artist.name}
           </h1>
           <p className="text-gray-400 capitalize">{artist.type}</p>

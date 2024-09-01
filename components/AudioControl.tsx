@@ -38,7 +38,7 @@ function AudioControl() {
   };
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 w-full h-[15%] bg-black p-6 flex items-center justify-center">
+    <div className="absolute bottom-0 left-0 right-0 w-full h-[12%] bg-black p-6 flex items-center justify-center">
       {/* Informações da faixa atual */}
       <div className="flex items-center justify-center gap-2 absolute left-5">
         {currentTrack ? (
