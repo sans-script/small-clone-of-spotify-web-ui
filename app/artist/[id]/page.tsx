@@ -171,7 +171,7 @@ export default function ArtistPage({ params }: ArtistPageProps) {
             {formatFollowers(artist.followers)} followers
           </p>
           <p className="text-white capitalize">{artist.genres.join(", ")}</p>
-          <h1 className="text-white sm:text-6xl text-xl font-bold truncate">
+          <h1 className="text-white sm:text-6xl text-3xl font-bold">
             {artist.name}
           </h1>
           <p className="text-gray-400 capitalize">{artist.type}</p>
